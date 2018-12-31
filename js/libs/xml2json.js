@@ -11,8 +11,15 @@ function xml2json(xml, tab) {
          var o = {};
          if (xml.nodeType==1) {   // element node ..
             if (xml.attributes.length)   // element with attributes  ..
-               for (var i=0; i<xml.attributes.length; i++)
-                  o[""+xml.attributes[i].nodeName] = (xml.attributes[i].nodeValue||"").toString();
+               for (var i=0; i<xml.attributes.length; i++){
+                  var nodeVal = '';
+                  if(xml.attributes[i] && xml.attributes[i].nodeValue){
+                     nodeVal = xml.attributes[i].nodeValue.toString();
+                     nodeVal = nodeVal.replace(/"/g,"'");
+                  }
+
+                  o[xml.attributes[i].nodeName] = nodeVal;
+               }
             if (xml.firstChild) { // element has child nodes ..
                var textChild=0, cdataChild=0, hasElementChild=false;
                for (var n=xml.firstChild; n; n=n.nextSibling) {
@@ -121,10 +128,11 @@ function xml2json(xml, tab) {
          return s;
       },
       escape: function(txt) {
-         return txt.replace(/[\\]/g, "\\\\")
+         return txt;
+         /*.replace(/[\\]/g, "\\\\")
                    .replace(/[\"]/g, '\\"')
                    .replace(/[\n]/g, '\\n')
-                   .replace(/[\r]/g, '\\r');
+                   .replace(/[\r]/g, '\\r');*/
       },
       removeWhite: function(e) {
          e.normalize();
