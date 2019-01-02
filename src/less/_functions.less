@@ -1,0 +1,93 @@
+// TEXT FUNCTIONS
+
+.bold(){
+	font-weight: bold;
+}
+.italic(){
+	font-style: italic;
+}
+
+// OPACITY
+.op(@o){
+	opacity: @o;
+}
+// TRANSITION
+.transition(@t){
+  -webkit-transition:@t;
+  -ms-transition:@t;
+  transition:@t;
+}
+// TRANSFORM
+.transform(@t) {
+  -webkit-transform: @t;
+  -ms-transform: @t;
+  transform: @t;
+}
+.noselect() {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Chrome/Safari/Opera */
+     -khtml-user-select: none; /* Konqueror */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  not supported by any browser */
+}
+// GRADIENTS
+.gradient(@a, @b) {
+  background: @a;
+  background: -moz-linear-gradient(top, @a 0%, @b 100%);
+  background: -webkit-linear-gradient(top, @a 0%, @b 100%);
+  background: linear-gradient(to bottom, @a 0%, @b 100%);
+}
+
+.input-base() {
+	-webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+.unwrap(){
+  white-space: nowrap;
+}
+.uppercase(){
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+
+.font(){
+  font-family:@font-family;
+}
+.font-alt(){
+  font-family:@font-family-alt;
+}
+
+
+// ANIMATION
+.keyframes(@name,@rules) {
+
+  @-webkit-keyframes @name {
+      @rules();
+  }
+
+  @-moz-keyframes @name {
+      @rules();
+  }
+
+  @-ms-keyframes @name {
+      @rules();
+  }
+
+  @-o-keyframes @name {
+      @rules();
+  }
+
+  @keyframes @name {
+      @rules();
+  }
+}
+.animation(@name,@t,@time:infinite) {
+  animation: @name @t @time;
+  -ms-animation: @name @t @time;
+  -moz-animation: @name @t @time;
+  -webkit-animation: @name @t @time;
+  -o-animation: @name @t @time;
+}

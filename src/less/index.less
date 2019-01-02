@@ -1,0 +1,220 @@
+@import "_variables.less";
+@import "_functions.less";
+
+/* STYLE.LESS */
+html,body{
+    background-color: #ddd;  
+    min-height: 100%;
+}
+.t-small{
+  font-size: 10px;
+}
+.loading{
+  text-align: center;
+  padding: 30px 0;
+}
+
+.header-tools{
+  @h:35px;
+  height: @h;
+  line-height: @h;
+  margin-bottom: 20px;
+  select{
+      height: @h;
+      width: 200px;
+  }
+}
+
+
+.collection{
+  padding: 20px 0;
+}
+.box-item{
+  border:1px solid #CCC;
+  background-color: #fff;
+  padding: 10px 20px;
+  margin-bottom: 15px;
+  display: flex;
+  box-shadow: 0 1px 4px rgba(0,0,0,.1);
+}
+@w-img: 150px;
+.box-item-img{    
+  width: @w-img;
+  height: @w-img;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  flex-basis: @w-img;
+  flex-shrink: 0;
+  position: relative;
+  .average{
+      position: absolute;
+      top: 0;
+      right: 0;
+      background-color: rgb(7, 150, 15);
+      color: #FFF;
+      font-weight: bold;
+      font-size: 12px;
+      line-height: 22px;
+      width: 25px;
+      text-align: center;
+      border-radius: 0 0 0 50%;
+      border-left: 1px solid #FFF;
+      border-bottom: 1px solid #FFF;
+      box-shadow: -1px 1px 2px rgba(0,0,0,.2);
+      padding-left: 3px;
+      padding-right: 3px;
+  }
+}
+.box-item-text{
+  flex-grow: 1;
+  padding: 0 20px;
+  .title{
+      font-size: 20px;
+      line-height: 1.3;
+      font-weight: bold;
+      display: block;
+  }
+  .subtitle{
+      line-height: 1.3;
+      font-style: italic;
+      padding-left: 4px;
+  }
+  .cop{
+      font-size: 13px;
+      line-height: 13px;
+      color:#888;
+      margin-top: 15px;
+      i{
+          //font-size: 10px;
+          position: relative;
+          top: -1px;
+      }
+      .cop-cell{
+          display: inline-block;
+          margin-right: 6px;
+          padding-right: 6px;
+          border-right: 1px solid #ddd;
+          &:last-child{
+              margin-right: 0;
+              padding-right: 0;
+              border-right: none;
+          }
+      }
+      .cop-diff{
+          display: inline-block;
+          width: 100px;
+          height: 6px;
+          border: 1px solid #CCC;
+          position: relative;
+          background: #37ff00;
+          background: -moz-linear-gradient(left, #37ff00 1%, #ffff00 44%, #ff0707 100%);
+          background: -webkit-linear-gradient(left, #37ff00 1%,#ffff00 44%,#ff0707 100%);
+          background: linear-gradient(to right, #37ff00 1%,#ffff00 44%,#ff0707 100%);
+          filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#37ff00', endColorstr='#ff0707',GradientType=1 );
+
+
+          div{
+              position: absolute;
+              right: 0;
+              top: 0;
+              bottom: 0;
+              width: 60%;
+              background-color: #FFF;
+              border-left: 1px solid #CCC;
+          }
+      }
+  }
+}
+.box-item-details{
+  @w: 30%;
+  width: @w;
+  flex-basis: @w;
+  flex-shrink: 0;
+  border-left: 1px dotted #CCC;
+  padding-left: 20px;
+  font-size: 11px;
+  line-height: 1.2;
+  position: relative;
+  .box-item-details-button{
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 20px;
+      height: 20px;
+      line-height: 20px;
+      text-align: center;
+      cursor: pointer;
+      background-color: rgb(13, 175, 67);
+      color: #fff;
+      border-radius: 50%;
+      opacity: .6;
+  }   
+
+  .box-item-details-cont{
+      max-height: @w-img;
+      border-bottom: 2px solid #DDD;
+      overflow: hidden;
+      transition: max-height 0.4s;
+  }
+
+  .details-item{
+      margin-bottom: 10px;
+      &:last-child{
+          margin-bottom: 0;
+      }
+  }
+  .d-title{
+      font-weight: bold;
+  }
+  .d-text{
+      color: #888;
+  }
+
+  &.detailsExpanded{
+      .box-item-details-button{
+          transform: rotate(180deg);
+          opacity: 1;
+      }
+      .box-item-details-cont{
+          max-height: 2000px;
+          border-bottom: none;
+      }
+  }
+}
+
+.resume{
+  border-top: 1px solid #DDD;
+  border-bottom: 1px solid #DDD;
+  margin-top: 15px;
+  .r-title{
+      font-weight: bold;
+      line-height: 1;
+      padding: 10px 0;
+      cursor: pointer;
+      i{
+          font-size: 11px;
+          position: relative;
+          top: -1px;
+          transition: all 0.4s;
+      }
+  }
+  .r-description{
+      overflow: hidden;
+      text-align: justify;
+      max-height: 20px;
+      opacity: .5;
+      transition: all 0.4s;    
+  }
+  &.descriptionExpanded{
+      .r-title{
+          i{
+              transform: rotate(180deg);
+          }
+      }
+      .r-description{
+          max-height: 2400px;
+          opacity: 1;
+      }
+  }
+}
