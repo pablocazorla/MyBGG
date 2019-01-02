@@ -19,16 +19,80 @@
 
   <div id="collection" class="collection">
     <div class="container">
-      <div class="row" data-bind="foreach:items">
-        <div class="col-md-3">
-          <div class="box-item">
-            <div class="box-item-img">
-              <div class="box-item-img-cont">
-                <img src="" data-bind="attr:{src:image}" />
+      <div class="loading" data-bind="visible:loading">
+        <i class="fa fa-cog fa-spin fa-3x fa-fw"></i>
+      </div>
+      <div style="display: none" data-bind="visible:!loading()">
+        <div class="header-tools">
+          <div class="tool">
+            <span>Ordenar por:</span>
+            <select>
+              <option>aaaa</option>
+            </select>
+          </div>
+        </div>
+        <div class="row" data-bind="foreach:items">
+          <div class="col-md-12">
+            <div class="box-item">
+              <div class="box-item-img" data-bind="attr:{style:styleImg}">
+                <div class="average" data-bind="text:average"></div>
               </div>
-            </div>
-            <div class="box-item-text">
-              <h3 class="text-center" data-bind="text:title"></h3>
+              <div class="box-item-text">
+                <a class="title" target="_blank" data-bind="text:title,attr:{href:link}"></a>
+                <div class="subtitle" data-bind="text:subtitle,visible:isSubtitle"></div>
+                <div class="cop">
+                  <div class="cop-cell">
+                    <i class="fa fa-users"></i>
+                    <span data-bind="text:minplayers"></span><span data-bind="visible:view_maxplayers">-<span data-bind="text:maxplayers"></span></span>
+                  </div>
+                  <div class="cop-cell">
+                    <i class="fa fa-clock-o"></i>
+                    <span data-bind="text:playingtime"></span> min.
+                  </div>
+                  <div class="cop-cell">
+                    <i class="fa fa-male"></i>
+                    <span data-bind="text:minage"></span>+ años.
+                  </div>
+
+                  <div class="cop-cell">
+                    <i class="fa fa-calendar"></i>
+                    <span data-bind="text:yearpublished"></span>
+                  </div>
+                  <div class="cop-cell">
+                    <div class="cop-diff">
+                      <div data-bind="attr:{style:averageweight}"></div>
+                    </div>
+                  </div>
+                  <div class="cop-cell" data-bind="visible:isLang">
+                    ranking: <a target="_blank" data-bind="text:rank,attr:{href:rankLink}"></a>
+                  </div>
+
+                </div>
+                <div class="cop">
+                  <div class="cop-cell" data-bind="visible:isLang">
+                    <i class="fa fa-language"></i>
+                    <span data-bind="text:lang"></span>
+                    <span class="t-small" data-bind="text:langDependency"></span>
+                  </div>
+                </div>
+
+                <div class="resume" data-bind="css:{descriptionExpanded:descriptionExpanded}">
+                  <div class="r-title" data-bind="click:toggleDescription">Resumen <i class="fa fa-chevron-down"></i></div>
+                  <div class="r-description" data-bind="text:description"></div>
+                </div>
+
+              </div>
+              <div class="box-item-details" data-bind="css:{detailsExpanded:detailsExpanded}">
+                <div class="box-item-details-button" data-bind="click:toggleDetails">
+                  <i class="fa fa-chevron-down"></i>
+                </div>
+                <div class="box-item-details-cont" data-bind="foreach:details">
+                  <div class="details-item">
+                    <div class="d-title" data-bind="text:d_title"></div>
+                    <div class="d-text" data-bind="text:d_text"></div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
