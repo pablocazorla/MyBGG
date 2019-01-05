@@ -193,30 +193,33 @@ export default class BoxGame extends Component {
       <div className={'resume' + (descriptionExpanded ? ' descriptionExpanded':'')} >
         <div className="r-title" onClick={()=>{
         this.setState({
-          descriptionExpanded: !this.state.descriptionExpanded
+          descriptionExpanded: !this.state.descriptionExpanded,
+          detailsExpanded: false
         });
       }}>Resumen <i className="fa fa-chevron-down"></i></div>
         <div className="r-description">{m.description}</div>
       </div>
 
+        <div className={'resume' + (detailsExpanded ? ' descriptionExpanded' : '')} >
+          <div className="r-title" onClick={() => {
+            this.setState({
+              detailsExpanded: !this.state.detailsExpanded,
+              descriptionExpanded: false
+            });
+          }}>Detalles <i className="fa fa-chevron-down"></i>
+          </div>
+          <div className="r-description">
+            {m.details.map((d, k) => {
+              return <div className="details-item" key={k}>
+                <div className="d-title">{d.title}</div>
+                <div className="d-text">{d.text}</div>
+              </div>;
+            })}
+          </div>
+        </div>
+
     </div>
-    <div className={'box-item-details' + (detailsExpanded ? ' detailsExpanded':'')}>
-      <div className="box-item-details-button" onClick={()=>{
-        this.setState({
-          detailsExpanded: !this.state.detailsExpanded
-        });
-      }}>
-        <i className="fa fa-chevron-down"></i>
-      </div>
-      <div className="box-item-details-cont">
-        {m.details.map((d,k) => {
-          return <div className="details-item" key={k}>
-            <div className="d-title">{d.title}</div>
-            <div className="d-text">{d.text}</div>
-          </div>;
-        })}        
-      </div>
-    </div>
+      
   </div>;
   }
 }

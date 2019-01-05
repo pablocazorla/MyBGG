@@ -23,22 +23,29 @@ body {
 .collection {
   padding: 20px 0;
 }
+.bg-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.bg-list .bg-item {
+  padding: 0 7px;
+}
 .box-item {
   border: 1px solid #CCC;
   background-color: #fff;
-  padding: 10px 20px;
+  padding: 10px 0;
   margin-bottom: 15px;
-  display: flex;
+  width: 280px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
 }
 .box-item-img {
-  width: 150px;
-  height: 150px;
+  width: auto;
+  height: 200px;
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
-  flex-basis: 150px;
-  flex-shrink: 0;
+  margin: 0 20px 10px;
   position: relative;
 }
 .box-item-img .average {
@@ -60,7 +67,6 @@ body {
   padding-right: 3px;
 }
 .box-item-text {
-  flex-grow: 1;
   padding: 0 20px;
 }
 .box-item-text .title {
@@ -76,9 +82,9 @@ body {
 }
 .box-item-text .cop {
   font-size: 13px;
-  line-height: 13px;
+  line-height: 1.8;
   color: #888;
-  margin-top: 15px;
+  margin-top: 8px;
 }
 .box-item-text .cop i {
   position: relative;
@@ -116,60 +122,8 @@ body {
   background-color: #FFF;
   border-left: 1px solid #CCC;
 }
-.box-item-details {
-  width: 30%;
-  flex-basis: 30%;
-  flex-shrink: 0;
-  border-left: 1px dotted #CCC;
-  padding-left: 20px;
-  font-size: 11px;
-  line-height: 1.2;
-  position: relative;
-}
-.box-item-details .box-item-details-button {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 20px;
-  height: 20px;
-  line-height: 20px;
-  text-align: center;
-  cursor: pointer;
-  background-color: #0daf43;
-  color: #fff;
-  border-radius: 50%;
-  opacity: 0.6;
-}
-.box-item-details .box-item-details-cont {
-  max-height: 150px;
-  border-bottom: 2px solid #DDD;
-  overflow: hidden;
-  transition: max-height 0.4s;
-}
-.box-item-details .details-item {
-  margin-bottom: 10px;
-}
-.box-item-details .details-item:last-child {
-  margin-bottom: 0;
-}
-.box-item-details .d-title {
-  font-weight: bold;
-}
-.box-item-details .d-text {
-  color: #888;
-}
-.box-item-details.detailsExpanded .box-item-details-button {
-  transform: rotate(180deg);
-  opacity: 1;
-}
-.box-item-details.detailsExpanded .box-item-details-cont {
-  max-height: 2000px;
-  border-bottom: none;
-}
 .resume {
-  border-top: 1px solid #DDD;
   border-bottom: 1px solid #DDD;
-  margin-top: 15px;
 }
 .resume .r-title {
   font-weight: bold;
@@ -186,9 +140,22 @@ body {
 .resume .r-description {
   overflow: hidden;
   text-align: justify;
-  max-height: 20px;
+  max-height: 0;
   opacity: 0.5;
   transition: all 0.4s;
+  font-size: 11px;
+}
+.resume .d-title {
+  font-weight: bold;
+}
+.resume .d-text {
+  color: #888;
+}
+.resume .details-item {
+  margin-bottom: 10px;
+}
+.resume .details-item:last-child {
+  margin-bottom: 0;
 }
 .resume.descriptionExpanded .r-title i {
   transform: rotate(180deg);

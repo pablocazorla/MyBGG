@@ -39,7 +39,9 @@ class App extends Component {
           {/* Header Tools */}
           <div className="bg-list">
           {items.map((item,k)=>{
-              return <BoxGame data={item} key={k}/>;
+            return <div className="bg-item" key={k}>
+                <BoxGame data={item} />
+              </div>;
             })}
           </div>
         </div>}
