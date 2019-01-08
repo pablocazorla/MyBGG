@@ -1,6 +1,22 @@
 import React, { Component } from 'react';
 import API from './api';
 import BoxGame from './components/box-game';
+const getRank = data => {
+  const {ratings} = data.statistics;
+  var r = 0;
+  if (ratings.ranks.rank.length) {
+    ratings.ranks.rank.forEach(function (it) {
+      if (it.name === 'boardgame') {
+        r = parseInt(it.value, 10);
+      }
+    });
+  } else {
+    if (ratings.ranks.rank.name === 'boardgame') {
+      r = parseInt(ratings.ranks.rank.value, 10);
+    }
+  }
+  return isNaN(r) ? 9999999999999999999999999 : r;
+};
 
 
 const orderFunctions = {
@@ -15,10 +31,15 @@ const orderFunctions = {
     const bName = typeof b.name.length !== 'undefined' ? b.name[0].value : b.name.value;
     return aName > bName ? -1 : 1;
   },
-  'Ranking': (a, b) => {
+  'Evaluación': (a, b) => {
     const aNum = parseFloat(a.statistics.ratings.average.value),
       bNum = parseFloat(b.statistics.ratings.average.value);
     return aNum > bNum ? -1 : 1;
+  },
+  'Ranking BGG': (a, b) => {
+    const aNum = getRank(a),
+      bNum = getRank(b);
+    return aNum < bNum ? -1 : 1;
   }
 };
 
@@ -37,6 +58,7 @@ class App extends Component {
     super(props);
     this.state = {
       loading: true,
+      error:false,
       items:[],
       orderFunc:'Seleccionar',
       playerNumOptions: [],
@@ -51,7 +73,8 @@ class App extends Component {
   }
   componentDidMount () {
     this.setState({
-      loading: true
+      loading: true,
+      error:false
     });
 
     const onLoad = obj => {
@@ -60,7 +83,7 @@ class App extends Component {
        
         let playerNumOptions = [],
           mpNum = 1;
-        while (mpNum <= 10) {
+        while (mpNum <= 9) {
           playerNumOptions.push(mpNum);
           mpNum++;
         }
@@ -79,6 +102,7 @@ class App extends Component {
 
         this.setState({
           loading: false,
+          error:false,
           items: obj.items.item,
           playerNumOptions,
           catList
@@ -87,10 +111,12 @@ class App extends Component {
       },
       onError = () => {
         this.setState({
-          loading: false
+          loading: false,
+          error:true
         });
       };
-
+    
+    window.scrollTo(0,0);
     API.loadCollection(onLoad,onError);
   }
   setOrder(e){
@@ -137,11 +163,27 @@ class App extends Component {
     }, 50);
   }
   render() {
-    const { loading, items, playerNumOptions, numPlayers, catList, catSelected} = this.state;
+    const { loading,error, items, playerNumOptions, numPlayers, catList, catSelected} = this.state;
   
     return  <div className="collection">
-      <div className="uk-container"> 
+      <div className="bt-top"
+        onClick={()=>{
+          window.scrollTo(0,0);
+        }}
+      >
+        <i className="fa fa-chevron-up"></i>
+      </div>
+      <div className="uk-container">
+      <div className="htit">
+        <a href="https://boardgamegeek.com/user/davicazu" target="_blank" rel="noopener noreferrer">
+          <img src="https://cf.geekdo-static.com/images/geekdo/bgg_cornerlogo.png" alt="BGG"/>
+        </a>        
+        <h1>My BGG Collection</h1>
+      </div>      
         <div className="bgg-header">
+          <div className="bggh_box no-w">
+            Total:&nbsp;<b><a href="https://boardgamegeek.com/user/davicazu" target="_blank" rel="noopener noreferrer">{items.length}</a></b>
+          </div>
           <div className="bggh_box">
             <label>Ordenar por:</label>
             <div className="inp-box">
@@ -153,8 +195,7 @@ class App extends Component {
                 })}
               </select>
             </div>            
-          </div>
-
+          </div>          
           <div className="bggh_box">
             <label>Num. jugadores:</label>
             <div className="inp-box">
@@ -163,7 +204,7 @@ class App extends Component {
               >
                 <option value="0">Todos</option>
                 {playerNumOptions.map((n,k)=>{
-                  return <option value={n} key={k}>{n}</option>;
+                  return <option value={n} key={k}>{n === 9 ? '+8':n}</option>;
                 })}
               </select>
             </div>
@@ -187,15 +228,12 @@ class App extends Component {
       </div>
       <div className="uk-container">        
         {loading ? <div className="loading" data-bind="visible:loading">
-          <i className="fa fa-cog fa-spin fa-3x fa-fw"></i>
-        </div> : <div>
-          {/* Header Tools */}
-          <div className="bg-list">
+          <i className="fa fa-cog fa-spin fa-3x fa-fw"></i><br/>cargando
+        </div> : (error ? <div className="error-mje">Error: no se han podido cargar los datos.</div>:<div className="bg-list">
           {items.map((item,k)=>{
             return <BoxGame data={item} key={k} catSelected={catSelected} numPlayers={numPlayers}/>;
             })}
-          </div>
-        </div>}
+          </div>)}
       </div>
     </div>;
   }

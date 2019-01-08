@@ -218,7 +218,9 @@ export default class BoxGame extends Component {
             <div style={{
               'width': m.averageweight + '%'
             }}></div>
-          </div>
+          </div>&nbsp;<span style={{
+            'fontSize':'80%'
+          }}>{(100-round(m.averageweight,0)) + '%'}</span>          
         </div>
         <div className="cop-cell" data-bind="visible:isLang">
           ranking: <a href={m.rankLink} target="_blank" rel="noopener noreferrer">{m.rank}</a>

@@ -44,7 +44,11 @@ let isFakeObj = false;
 const API = {
   loadCollection: (callback, onError) => {
     if (isFakeObj) {
-      callback.apply(null, [window.fakeObj]);
+      if(window.fakeObj){
+        callback.apply(null, [window.fakeObj]);
+      }else{
+        onError.apply(null, ['ERROR']);
+      }      
     } else {
       const url = '/xmlapi2/collection?',
         parameters = 'username=davicazu&version=1&brief=1&subtype=boardgame';
