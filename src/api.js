@@ -39,7 +39,7 @@ const getFromApi = function (urlApi, callback, onError) {
   }
 };
 
-let isFakeObj = true;
+let isFakeObj = false;
 
 const API = {
   loadCollection: (callback, onError) => {

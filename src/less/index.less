@@ -14,15 +14,30 @@ html,body{
   padding: 30px 0;
 }
 
-.header-tools{
-  @h:35px;
-  height: @h;
-  line-height: @h;
-  margin-bottom: 20px;
-  select{
-      height: @h;
-      width: 200px;
-  }
+
+.bgg-header{
+    padding-bottom: 20px;
+    display: flex;
+    .bggh_box{
+        display: flex;
+        align-items:center;
+        width: 300px;
+        padding: 0 10px;
+        border-left: 1px solid #AAA;
+        label{
+            padding-right: 8px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .inp-box{
+            flex-grow: 1;
+        }
+
+        &:first-child{
+            border-left: none;
+            padding-left: 0;
+        }
+    }
 }
 
 

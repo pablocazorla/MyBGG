@@ -11,14 +11,28 @@ body {
   text-align: center;
   padding: 30px 0;
 }
-.header-tools {
-  height: 35px;
-  line-height: 35px;
-  margin-bottom: 20px;
+.bgg-header {
+  padding-bottom: 20px;
+  display: flex;
 }
-.header-tools select {
-  height: 35px;
-  width: 200px;
+.bgg-header .bggh_box {
+  display: flex;
+  align-items: center;
+  width: 300px;
+  padding: 0 10px;
+  border-left: 1px solid #AAA;
+}
+.bgg-header .bggh_box label {
+  padding-right: 8px;
+  font-size: 12px;
+  font-weight: bold;
+}
+.bgg-header .bggh_box .inp-box {
+  flex-grow: 1;
+}
+.bgg-header .bggh_box:first-child {
+  border-left: none;
+  padding-left: 0;
 }
 .collection {
   padding: 20px 0;

@@ -5,16 +5,48 @@ const round = function (value, precision) {
   return Math.round(value * multiplier) / multiplier;
 };
 
+const setVisibleByNumPlayers = (data, numPlayers) => {
+  if (numPlayers === 0){
+    return true;
+  }
+  const min = parseInt(data.minplayers.value,10),
+    max = parseInt(data.maxplayers.value, 10);
+
+  return numPlayers >= min && numPlayers <= max;
+};
+
+const setVisibleByCat = (details, catSelected, visible) => {
+  if (!visible){
+    return false;
+  }
+
+  let v = true;
+  if (catSelected !== '0'){
+    v = false;
+    details.forEach(function (de) {
+      if (de.title === 'Mecánica') {
+        let catList = de.text.split(',');
+
+        catList.forEach(c => {
+          if (c.indexOf(catSelected) >= 0 ) {            
+            v = true;
+          }
+        });
+        
+      }
+    });
+  }
+  
+  return v;
+};
+
 export default class BoxGame extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      detailsExpanded: false,
-      descriptionExpanded: false
-    };
+    
 
-    const {data} = this.props;
+    const { data, numPlayers, catSelected} = this.props;
 
     const {myData} = data;
     const {ratings} = data.statistics;
@@ -107,7 +139,7 @@ export default class BoxGame extends Component {
           implementation: 'Implementación',
           integration: 'Integración'
       };
-
+      //console.log(data);
       var links = {}
       data.link.forEach(function (el) {
           var name = el.type.replace('boardgame', '');
@@ -127,6 +159,17 @@ export default class BoxGame extends Component {
     })();
 
     this.m = m;
+
+    let visible = setVisibleByNumPlayers(data, numPlayers);
+
+    visible = setVisibleByCat(m.details, catSelected, visible);
+   
+
+    this.state = {
+      detailsExpanded: false,
+      descriptionExpanded: false,
+      visible
+    };
     
   }
   // componentDidMount () {
@@ -138,12 +181,12 @@ export default class BoxGame extends Component {
   render(){
     const {m} = this;
 
-    const {detailsExpanded, descriptionExpanded} = this.state;
+    const {detailsExpanded, descriptionExpanded,visible} = this.state;
 
     
 
 
-    return <div className="box-item">
+    return visible ? <div className="bg-item"><div className="box-item">
     <div className="box-item-img" style={{
       'backgroundImage': 'url("' + m.image +'")'
     }}>
@@ -220,6 +263,6 @@ export default class BoxGame extends Component {
 
     </div>
       
-  </div>;
+    </div></div> : null;
   }
 }
